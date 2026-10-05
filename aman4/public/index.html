@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="VaultGate secure account access"><title>VaultGate — Secure access</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+  <main class="shell">
+    <section class="brand-panel">
+      <a class="brand" href="#"><span class="brand-mark">V</span> VaultGate</a>
+      <div class="hero-copy"><p class="eyebrow">PRIVATE BY DESIGN</p><h1>Your digital<br>life, protected.</h1><p>A calm, secure place to access the things that matter most. Built with modern account protection at its core.</p></div>
+      <div class="trust"><span class="lock">⌁</span><div><strong>Secured account access</strong><small>Passwords are never stored in plain text.</small></div></div>
+      <p class="copyright">© 2026 VaultGate, Inc.</p>
+    </section>
+    <section class="form-panel">
+      <div class="form-wrap" id="auth-area">
+        <div class="form-heading"><span class="step">01 / ACCESS</span><h2>Welcome back.</h2><p>Enter your details to continue securely.</p></div>
+        <div class="toggle" role="tablist"><button class="active" data-mode="login">Sign in</button><button data-mode="register">Create account</button></div>
+        <div class="notice" id="notice" aria-live="polite"></div>
+        <form id="auth-form" novalidate>
+          <label class="name-field">Full name<input id="name" type="text" autocomplete="name" maxlength="60" placeholder="Your name"></label>
+          <label>Email address<input id="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required></label>
+          <label>Password<div class="password-box"><input id="password" type="password" autocomplete="current-password" maxlength="128" placeholder="Enter your password" required><button type="button" id="reveal" aria-label="Show password">Show</button></div></label>
+          <p class="password-hint">For new accounts: 12+ characters, with upper, lower, and a number.</p>
+          <button class="primary" id="submit" type="submit">Sign in <span>→</span></button>
+        </form>
+        <p class="security-note"><span>✓</span> Your connection and session are protected.</p>
+      </div>
+      <div class="welcome hidden" id="welcome"><span class="success-icon">✓</span><p class="eyebrow">SESSION ACTIVE</p><h2>You’re safely in.</h2><p id="welcome-text"></p><button class="primary" id="logout">Sign out <span>→</span></button></div>
+    </section>
+  </main><script src="/app.js"></script>
+</body></html>

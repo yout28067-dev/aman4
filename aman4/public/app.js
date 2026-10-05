@@ -1,0 +1,11 @@
+const form=document.querySelector('#auth-form'), notice=document.querySelector('#notice'), modeButtons=document.querySelectorAll('[data-mode]');
+let mode='login';
+const setNotice=(message,type='')=>{notice.textContent=message;notice.className=`notice ${type}`;};
+function setMode(next){mode=next;modeButtons.forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));document.querySelector('.name-field').classList.toggle('visible',mode==='register');document.querySelector('#submit').innerHTML=(mode==='login'?'Sign in':'Create secure account')+' <span>→</span>';document.querySelector('#password').autocomplete=mode==='login'?'current-password':'new-password';setNotice('');}
+modeButtons.forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.querySelector('#reveal').addEventListener('click',e=>{const field=document.querySelector('#password');field.type=field.type==='password'?'text':'password';e.currentTarget.textContent=field.type==='password'?'Show':'Hide';});
+async function request(path, options={}){const r=await fetch(path,{headers:{'Content-Type':'application/json'},...options});const data=await r.json();if(!r.ok)throw Error(data.error||'Something went wrong.');return data;}
+function showWelcome(user){document.querySelector('#auth-area').classList.add('hidden');document.querySelector('#welcome').classList.remove('hidden');document.querySelector('#welcome-text').textContent=`Welcome, ${user.name}. Your secure session is active.`;}
+form.addEventListener('submit',async e=>{e.preventDefault();const button=document.querySelector('#submit');button.disabled=true;setNotice('');try{const payload={email:email.value.trim(),password:password.value};if(mode==='register')payload.name=name.value.trim();const data=await request(`/api/${mode==='login'?'login':'register'}`,{method:'POST',body:JSON.stringify(payload)});showWelcome(data.user);}catch(error){setNotice(error.message,'error');}finally{button.disabled=false;}});
+document.querySelector('#logout').addEventListener('click',async()=>{await request('/api/logout',{method:'POST'});document.querySelector('#welcome').classList.add('hidden');document.querySelector('#auth-area').classList.remove('hidden');form.reset();setMode('login');});
+request('/api/me').then(data=>data.user&&showWelcome(data.user)).catch(()=>{});
